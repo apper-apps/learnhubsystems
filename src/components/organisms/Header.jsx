@@ -1,7 +1,7 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import React from "react";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/App";
 import ApperIcon from "@/components/ApperIcon";
 import Dropdown from "@/components/molecules/Dropdown";
 import Button from "@/components/atoms/Button";
