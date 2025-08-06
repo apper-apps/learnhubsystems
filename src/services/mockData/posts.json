@@ -1,0 +1,32 @@
+[
+  {
+    "Id": 1,
+    "slug": "first-post",
+    "title": "Welcome to Insight",
+    "thumbnail_url": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&h=450&fit=crop&crop=center",
+    "excerpt": "Our very first insight.",
+    "content_richtext": "<h1>Welcome to LearnHub Pro Insights!</h1><p>This is our very first insight post, and we're excited to share our knowledge and expertise with you. In this space, we'll be publishing regular articles, tutorials, and industry insights to help you on your learning journey.</p><h2>What to Expect</h2><p>Our insights will cover a wide range of topics including:</p><ul><li>Learning strategies and techniques</li><li>Industry trends and updates</li><li>Expert interviews and case studies</li><li>Tips for maximizing your educational experience</li></ul><p>We believe that continuous learning is the key to success, and we're here to support you every step of the way.</p><blockquote>\"The beautiful thing about learning is that no one can take it away from you.\" - B.B. King</blockquote><p>Stay tuned for more valuable content coming your way!</p>",
+    "author_id": "1",
+    "published_at": "2024-01-25T09:00:00Z"
+  },
+  {
+    "Id": 2,
+    "slug": "effective-learning-strategies",
+    "title": "10 Effective Learning Strategies for Online Education",
+    "thumbnail_url": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=450&fit=crop&crop=center",
+    "excerpt": "Discover proven techniques to maximize your online learning experience and achieve better results.",
+    "content_richtext": "<h1>10 Effective Learning Strategies for Online Education</h1><p>Online learning has revolutionized education, but it requires different strategies than traditional classroom learning. Here are ten proven techniques to help you succeed.</p><h2>1. Create a Dedicated Learning Space</h2><p>Having a specific area for learning helps your brain associate that space with focus and productivity.</p><h2>2. Set Clear Goals</h2><p>Define what you want to achieve with each study session and course.</p><p>Continue reading to discover all ten strategies that will transform your learning experience...</p>",
+    "author_id": "1",
+    "published_at": "2024-01-28T11:30:00Z"
+  },
+  {
+    "Id": 3,
+    "slug": "future-of-education-technology",
+    "title": "The Future of Education Technology: Trends to Watch",
+    "thumbnail_url": "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800&h=450&fit=crop&crop=center",
+    "excerpt": "Explore the emerging technologies that are reshaping how we learn and teach in the digital age.",
+    "content_richtext": "<h1>The Future of Education Technology</h1><p>Education technology is evolving rapidly, bringing new opportunities and challenges. Let's explore the key trends shaping the future of learning.</p><h2>Artificial Intelligence in Education</h2><p>AI is personalizing learning experiences like never before, adapting to individual learning styles and paces.</p><h2>Virtual and Augmented Reality</h2><p>Immersive technologies are creating new possibilities for experiential learning.</p>",
+    "author_id": "1",
+    "published_at": "2024-02-01T16:15:00Z"
+  }
+]

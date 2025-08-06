@@ -1,0 +1,57 @@
+[
+  {
+    "Id": 1,
+    "program_slug": "membership",
+    "level": "membership",
+    "cohort_number": null,
+    "category": "Welcome",
+    "title": "Getting Started",
+    "embed_url": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "duration_minutes": 15,
+    "order_index": 1
+  },
+  {
+    "Id": 2,
+    "program_slug": "text-influencer",
+    "level": "master_common",
+    "cohort_number": null,
+    "category": "Introduction",
+    "title": "Master Overview",
+    "embed_url": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "duration_minutes": 25,
+    "order_index": 1
+  },
+  {
+    "Id": 3,
+    "program_slug": "membership",
+    "level": "membership",
+    "cohort_number": null,
+    "category": "Fundamentals",
+    "title": "Core Concepts",
+    "embed_url": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "duration_minutes": 30,
+    "order_index": 2
+  },
+  {
+    "Id": 4,
+    "program_slug": "text-influencer",
+    "level": "master_common",
+    "cohort_number": null,
+    "category": "Writing Basics",
+    "title": "Fundamentals of Persuasive Writing",
+    "embed_url": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "duration_minutes": 35,
+    "order_index": 2
+  },
+  {
+    "Id": 5,
+    "program_slug": "text-influencer",
+    "level": "master_advanced",
+    "cohort_number": 1,
+    "category": "Advanced Techniques",
+    "title": "Advanced Copywriting Strategies",
+    "embed_url": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "duration_minutes": 45,
+    "order_index": 3
+  }
+]

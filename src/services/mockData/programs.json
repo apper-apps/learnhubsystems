@@ -1,0 +1,22 @@
+[
+  {
+    "Id": 1,
+    "slug": "membership",
+    "title": "Membership Course",
+    "thumbnail_url": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=450&fit=crop&crop=center",
+    "description_short": "Member-only videos",
+    "description_long": "An exclusive membership course designed for dedicated learners who want access to premium content, advanced strategies, and member-only resources. This comprehensive program covers foundational concepts through advanced techniques.",
+    "has_common_course": false,
+    "created_at": "2024-01-15T10:00:00Z"
+  },
+  {
+    "Id": 2,
+    "slug": "text-influencer",
+    "title": "Text Influencer Master",
+    "thumbnail_url": "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&h=450&fit=crop&crop=center",
+    "description_short": "Master your writing",
+    "description_long": "Transform your writing skills and become a powerful text influencer. Learn advanced copywriting techniques, persuasive messaging, content strategy, and how to build an engaged audience through compelling written content.",
+    "has_common_course": true,
+    "created_at": "2024-01-20T14:30:00Z"
+  }
+]
