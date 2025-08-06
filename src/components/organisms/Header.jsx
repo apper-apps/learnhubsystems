@@ -1,15 +1,118 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import React from "react";
+import React, { useState } from "react";
 import { useAuth } from "@/App";
 import ApperIcon from "@/components/ApperIcon";
 import Dropdown from "@/components/molecules/Dropdown";
 import Button from "@/components/atoms/Button";
+import Card from "@/components/atoms/Card";
+// Add Program Modal Component
+const AddProgramModal = ({ isOpen, onClose }) => {
+  const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    type: 'membership'
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Here you would typically call programService.create(formData)
+    console.log('Creating program:', formData);
+    onClose();
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.9 }}
+        className="bg-midnight-800 p-6 rounded-lg w-full max-w-md mx-4"
+      >
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-semibold text-white">Add New Program</h2>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={onClose}
+            className="text-midnight-400 hover:text-white"
+          >
+            <ApperIcon name="X" className="w-5 h-5" />
+          </Button>
+        </div>
+        
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-midnight-300 mb-2">
+              Program Title
+            </label>
+            <input
+              type="text"
+              value={formData.title}
+              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+              className="w-full px-3 py-2 bg-midnight-700 border border-midnight-600 rounded-lg text-white placeholder-midnight-400 focus:outline-none focus:ring-2 focus:ring-primary-400"
+              placeholder="Enter program title"
+              required
+            />
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-midnight-300 mb-2">
+              Description
+            </label>
+            <textarea
+              value={formData.description}
+              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              className="w-full px-3 py-2 bg-midnight-700 border border-midnight-600 rounded-lg text-white placeholder-midnight-400 focus:outline-none focus:ring-2 focus:ring-primary-400 resize-none"
+              rows="3"
+              placeholder="Enter program description"
+              required
+            />
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-midnight-300 mb-2">
+              Program Type
+            </label>
+            <select
+              value={formData.type}
+              onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+              className="w-full px-3 py-2 bg-midnight-700 border border-midnight-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary-400"
+            >
+              <option value="membership">Membership</option>
+              <option value="master">Master</option>
+            </select>
+          </div>
+          
+          <div className="flex justify-end space-x-3 pt-4">
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={onClose}
+              className="text-midnight-400 hover:text-white"
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              className="bg-primary-500 hover:bg-primary-600 text-white"
+            >
+              Create Program
+            </Button>
+          </div>
+        </form>
+      </motion.div>
+    </div>
+  );
+};
 
 const Header = () => {
   const { currentUser, isLoggedIn, isAdmin, login, logout } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
+  const [isAddProgramModalOpen, setIsAddProgramModalOpen] = useState(false);
   
 // Mock users data for demo login functionality
   const mockUsers = [
@@ -68,11 +171,13 @@ const Header = () => {
             </div>
           }
         >
-          {dropdown.map((item, index) => (
+{dropdown.map((item, index) => (
             <Dropdown.Item
               key={index}
-              onClick={() => navigate(item.path)}
+              onClick={item.onClick || (() => navigate(item.path))}
+              className={item.adminOnly && !isAdmin ? "hidden" : ""}
             >
+              {item.icon && <ApperIcon name={item.icon} className="w-4 h-4 mr-2" />}
               {item.label}
             </Dropdown.Item>
           ))}
@@ -92,101 +197,114 @@ const Header = () => {
     );
   };
 
-  const programDropdown = [
-    { label: "All Programs", path: "/program" },
-    { label: "Membership Course", path: "/program/membership" },
-    { label: "Text Influencer Master", path: "/program/text-influencer" }
+const programDropdown = [
+    { label: "Membership", path: "/program/membership" },
+    { label: "Master", path: "/program/master" },
+    ...(isAdmin ? [{
+      label: "➕ Add Program",
+      onClick: () => setIsAddProgramModalOpen(true),
+      icon: "Plus",
+      adminOnly: true
+    }] : [])
   ];
 
-  return (
-    <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className="sticky top-0 z-40 bg-midnight-900/80 backdrop-blur-lg border-b border-midnight-700"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-primary-400 to-primary-600 rounded-lg flex items-center justify-center">
-              <ApperIcon name="GraduationCap" className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-xl font-display font-bold text-white">
-              LearnHub Pro
-            </span>
-          </Link>
-{/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-2">
-            <NavLink to="/">Home</NavLink>
-            <NavLink to="/program" dropdown={programDropdown}>
-              Program
-            </NavLink>
-            <NavLink to="/insight">Insight</NavLink>
-            <NavLink to="/reviews">Reviews</NavLink>
-            {isLoggedIn && <NavLink to="/profile">Profile</NavLink>}
-            {isAdmin && <NavLink to="/admin">Admin</NavLink>}
-          </nav>
-
-          {/* Authentication Section */}
-          <div className="hidden md:flex items-center space-x-3">
-            {!currentUser ? (
-              // Show Log In / Sign Up buttons when not logged in
-              <div className="flex items-center space-x-2">
-                <Button 
-                  variant="ghost" 
-                  size="sm"
-                  onClick={handleLogin}
-                  className="text-midnight-300 hover:text-white"
-                >
-                  Log In
-                </Button>
-                <Button 
-                  size="sm"
-                  onClick={handleSignUp}
-                  className="bg-primary-500 hover:bg-primary-600 text-white"
-                >
-                  Sign Up
-                </Button>
+return (
+    <>
+      <motion.header
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        className="sticky top-0 z-40 bg-midnight-900/80 backdrop-blur-lg border-b border-midnight-700"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo */}
+            <Link to="/" className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-gradient-to-br from-primary-400 to-primary-600 rounded-lg flex items-center justify-center">
+                <ApperIcon name="GraduationCap" className="w-5 h-5 text-white" />
               </div>
-            ) : (
-              // Show avatar dropdown when logged in
-              <Dropdown
-                align="right"
-                trigger={
-                  <div className="flex items-center space-x-2 cursor-pointer hover:bg-midnight-800 rounded-lg p-2 transition-colors">
-                    <img
-                      src={currentUser.avatar_url}
-                      alt={currentUser.name}
-                      className="w-8 h-8 rounded-full object-cover"
-                    />
-                    <span className="text-sm text-midnight-200">{currentUser.name}</span>
-                    <ApperIcon name="ChevronDown" className="w-4 h-4 text-midnight-400" />
-                  </div>
-                }
-              >
-                {avatarDropdownItems.map((item, index) => (
-                  <Dropdown.Item
-                    key={index}
-                    onClick={item.onClick || (() => navigate(item.path))}
-                    className="flex items-center space-x-2 px-4 py-2 text-sm text-midnight-200 hover:bg-midnight-700 hover:text-white"
-                  >
-                    <ApperIcon name={item.icon} className="w-4 h-4" />
-                    <span>{item.label}</span>
-                  </Dropdown.Item>
-                ))}
-              </Dropdown>
-            )}
-          </div>
+              <span className="text-xl font-display font-bold text-white">
+                LearnHub Pro
+              </span>
+            </Link>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
-            <Button variant="ghost" size="sm">
-              <ApperIcon name="Menu" className="w-5 h-5" />
-            </Button>
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center space-x-2">
+              <NavLink to="/">Home</NavLink>
+              <NavLink to="/program" dropdown={programDropdown}>
+                Program
+              </NavLink>
+              <NavLink to="/insight">Insight</NavLink>
+              <NavLink to="/reviews">Reviews</NavLink>
+              {isLoggedIn && <NavLink to="/profile">Profile</NavLink>}
+              {isAdmin && <NavLink to="/admin">Admin</NavLink>}
+            </nav>
+
+            {/* Authentication Section */}
+            <div className="hidden md:flex items-center space-x-3">
+              {!currentUser ? (
+                // Show Log In / Sign Up buttons when not logged in
+                <div className="flex items-center space-x-2">
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={handleLogin}
+                    className="text-midnight-300 hover:text-white"
+                  >
+                    Log In
+                  </Button>
+                  <Button 
+                    size="sm"
+                    onClick={handleSignUp}
+                    className="bg-primary-500 hover:bg-primary-600 text-white"
+                  >
+                    Sign Up
+                  </Button>
+                </div>
+              ) : (
+                // Show avatar dropdown when logged in
+                <Dropdown
+                  align="right"
+                  trigger={
+                    <div className="flex items-center space-x-2 cursor-pointer hover:bg-midnight-800 rounded-lg p-2 transition-colors">
+                      <img
+                        src={currentUser.avatar_url}
+                        alt={currentUser.name}
+                        className="w-8 h-8 rounded-full object-cover"
+                      />
+                      <span className="text-sm text-midnight-200">{currentUser.name}</span>
+                      <ApperIcon name="ChevronDown" className="w-4 h-4 text-midnight-400" />
+                    </div>
+                  }
+                >
+                  {avatarDropdownItems.map((item, index) => (
+                    <Dropdown.Item
+                      key={index}
+                      onClick={item.onClick || (() => navigate(item.path))}
+                      className="flex items-center space-x-2 px-4 py-2 text-sm text-midnight-200 hover:bg-midnight-700 hover:text-white"
+                    >
+                      <ApperIcon name={item.icon} className="w-4 h-4" />
+                      <span>{item.label}</span>
+                    </Dropdown.Item>
+                  ))}
+                </Dropdown>
+              )}
+            </div>
+
+            {/* Mobile Menu Button */}
+            <div className="md:hidden">
+              <Button variant="ghost" size="sm">
+                <ApperIcon name="Menu" className="w-5 h-5" />
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
-    </motion.header>
+      </motion.header>
+      
+      <AddProgramModal 
+        isOpen={isAddProgramModalOpen}
+        onClose={() => setIsAddProgramModalOpen(false)}
+      />
+    </>
   );
 };
 

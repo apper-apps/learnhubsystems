@@ -55,9 +55,11 @@ return (
           <Layout>
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="/program" element={<ProgramListPage />} />
-              <Route path="/program/:slug" element={<ProgramDetailPage />} />
-              <Route path="/insight" element={<InsightListPage />} />
+<Route path="/program" element={<ProgramListPage />} />
+        <Route path="/program/membership" element={<ProgramDetailPage />} />
+        <Route path="/program/master" element={<ProgramDetailPage />} />
+        <Route path="/program/:slug" element={<ProgramDetailPage />} />
+        <Route path="/insight" element={<InsightListPage />} />
               <Route path="/insight/:slug" element={<InsightDetailPage />} />
               <Route path="/reviews" element={<ReviewsPage />} />
               <Route path="/profile" element={<ProfilePage />} />
