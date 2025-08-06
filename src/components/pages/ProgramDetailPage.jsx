@@ -7,13 +7,17 @@ import Button from "@/components/atoms/Button";
 import Card from "@/components/atoms/Card";
 import Loading from "@/components/ui/Loading";
 import Error from "@/components/ui/Error";
+import Empty from "@/components/ui/Empty";
 import ApperIcon from "@/components/ApperIcon";
+import { useAuth } from "@/App";
+import { toast } from "react-toastify";
 import { programService } from "@/services/api/programService";
 import { lectureService } from "@/services/api/lectureService";
 
 const ProgramDetailPage = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
+  const { currentUser } = useAuth();
   const [program, setProgram] = useState(null);
   const [lectures, setLectures] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -49,9 +53,16 @@ const ProgramDetailPage = () => {
     loadProgramData();
   }, [slug]);
 
-  if (loading) return <Loading />;
+if (loading) return <Loading />;
   if (error) return <Error message={error} onRetry={loadProgramData} />;
   if (!program) return <Error message="Program not found" />;
+
+  // Access control: allow only members or admins
+  if (!currentUser?.is_admin && slug === 'membership') {
+    toast.error('Access denied. Membership required to view this content.');
+    navigate('/program');
+    return null;
+  }
 
   return (
     <PageContainer>
@@ -60,8 +71,8 @@ const ProgramDetailPage = () => {
         animate={{ opacity: 1, y: 0 }}
         className="space-y-8"
       >
-        {/* Header */}
-        <div className="flex items-center space-x-4 mb-6">
+{/* Header */}
+        <div className="flex items-center justify-between mb-6">
           <Button
             variant="ghost"
             onClick={() => navigate("/program")}
@@ -69,6 +80,16 @@ const ProgramDetailPage = () => {
             <ApperIcon name="ArrowLeft" className="w-4 h-4 mr-2" />
             Back to Programs
           </Button>
+          
+          {currentUser?.is_admin && (
+            <Button
+              className="bg-primary-400 hover:bg-primary-600 text-white"
+              onClick={() => toast.info('Add Lecture feature coming soon!')}
+            >
+              <ApperIcon name="Plus" className="w-4 h-4 mr-2" />
+              Add Lecture
+            </Button>
+          )}
         </div>
 
         {/* Program Info */}
@@ -124,11 +145,21 @@ const ProgramDetailPage = () => {
         </Card>
 
         {/* Lectures */}
-        <div>
+<div>
           <h2 className="text-2xl font-display font-bold text-white mb-6">
             Course Content
           </h2>
-          <LectureList lectures={lectures} programSlug={slug} />
+          {lectures.length === 0 ? (
+            <Empty
+              title="No videos yet"
+              description="This program doesn't have any lectures available at the moment. Check back soon for new content!"
+              actionText="Browse Other Programs"
+              onAction={() => navigate('/program')}
+              icon="VideoOff"
+            />
+          ) : (
+            <LectureList lectures={lectures} programSlug={slug} />
+          )}
         </div>
       </motion.div>
     </PageContainer>
