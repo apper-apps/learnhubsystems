@@ -1,7 +1,7 @@
-import { Route, Router, Routes } from "react-router-dom";
+import "@/index.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import React, { createContext, useContext, useState } from "react";
-import "@/index.css";
 import Layout from "@/components/organisms/Layout";
 import Error from "@/components/ui/Error";
 import AdminProgramsPage from "@/components/pages/AdminProgramsPage";
@@ -49,8 +49,8 @@ function App() {
   };
 
   return (
-    <AuthContext.Provider value={authValue}>
-    <Router>
+<AuthContext.Provider value={authValue}>
+    <BrowserRouter>
         <div className="min-h-screen bg-midnight-900 text-white">
             <Layout>
                 <Routes>
@@ -78,13 +78,13 @@ function App() {
                 pauseOnFocusLoss
                 draggable
                 pauseOnHover
+pauseOnHover
                 theme="dark"
                 style={{
                     zIndex: 9999
                 }} />
         </div>
-    </Router></AuthContext.Provider>
-  );
-}
+    </BrowserRouter>
+</AuthContext.Provider>
 
 export default App;
