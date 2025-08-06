@@ -57,12 +57,8 @@ if (loading) return <Loading />;
   if (error) return <Error message={error} onRetry={loadProgramData} />;
   if (!program) return <Error message="Program not found" />;
 
-  // Access control: allow only members or admins
-  if (!currentUser?.is_admin && slug === 'membership') {
-    toast.error('Access denied. Membership required to view this content.');
-    navigate('/program');
-    return null;
-  }
+// Membership program is now publicly accessible
+  // Content restrictions are handled in LectureList component
 
   return (
     <PageContainer>
