@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { toast } from "react-toastify";
 import { useAuth } from "@/App";
 import ApperIcon from "@/components/ApperIcon";
 import Button from "@/components/atoms/Button";
 import Card from "@/components/atoms/Card";
+
 const LectureList = ({ lectures, programSlug }) => {
 const [selectedLecture, setSelectedLecture] = useState(null);
   const { currentUser } = useAuth();
