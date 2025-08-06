@@ -48,43 +48,44 @@ function App() {
     isAdmin: currentUser?.is_admin || false,
   };
 
-  return (
-<AuthContext.Provider value={authValue}>
-    <BrowserRouter>
+return (
+    <AuthContext.Provider value={authValue}>
+      <BrowserRouter>
         <div className="min-h-screen bg-midnight-900 text-white">
-            <Layout>
-                <Routes>
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/program" element={<ProgramListPage />} />
-                    <Route path="/program/:slug" element={<ProgramDetailPage />} />
-                    <Route path="/insight" element={<InsightListPage />} />
-                    <Route path="/insight/:slug" element={<InsightDetailPage />} />
-                    <Route path="/reviews" element={<ReviewsPage />} />
-                    <Route path="/profile" element={<ProfilePage />} />
-                    <Route path="/admin" element={<AdminPage />} />
-                    <Route path="/admin/users" element={<AdminUsersPage />} />
-                    <Route path="/admin/programs" element={<AdminProgramsPage />} />
-                    <Route path="/admin/lectures" element={<AdminLecturesPage />} />
-                    <Route path="/admin/posts" element={<AdminPostsPage />} />
-                </Routes>
-            </Layout>
-            <ToastContainer
-                position="top-right"
-                autoClose={3000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-pauseOnHover
-                theme="dark"
-                style={{
-                    zIndex: 9999
-                }} />
+          <Layout>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/program" element={<ProgramListPage />} />
+              <Route path="/program/:slug" element={<ProgramDetailPage />} />
+              <Route path="/insight" element={<InsightListPage />} />
+              <Route path="/insight/:slug" element={<InsightDetailPage />} />
+              <Route path="/reviews" element={<ReviewsPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/admin" element={<AdminPage />} />
+              <Route path="/admin/users" element={<AdminUsersPage />} />
+              <Route path="/admin/programs" element={<AdminProgramsPage />} />
+              <Route path="/admin/lectures" element={<AdminLecturesPage />} />
+              <Route path="/admin/posts" element={<AdminPostsPage />} />
+            </Routes>
+          </Layout>
+          <ToastContainer
+            position="top-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+            style={{
+              zIndex: 9999
+            }} />
         </div>
-    </BrowserRouter>
-</AuthContext.Provider>
+      </BrowserRouter>
+    </AuthContext.Provider>
+  );
+}
 
 export default App;
